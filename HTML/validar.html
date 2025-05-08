@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validar Cuenta - s21sec</title>
+    <link rel="stylesheet" href="..\CSS\validar1.css">
+</head>
+<body>
+    <div class="validation-container">
+        <h2>Validar Cuenta</h2>
+        <p>Introduce el código de verificación que hemos enviado a tu correo.</p>
+        <form action="..\PHP\validar.php" method="POST">
+            <div class="input-group">
+                <label for="codigo">Código de Validación</label>
+                <input type="text" id="codigo" name="codigo" required>
+            </div>
+            <button type="submit" class="btn-validate">Validar Cuenta</button>
+        </form>
+    </div>
+</body>
+</html>

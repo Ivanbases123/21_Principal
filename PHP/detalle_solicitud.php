@@ -37,7 +37,8 @@
             <li><strong>Cargo:</strong> <?php echo $cliente['cargo']; ?></li>
             <li><strong>Email:</strong> <?php echo $cliente['email']; ?></li>
             <li><strong>Teléfono:</strong> <?php echo $cliente['telefono']; ?></li>
-            <li><strong>País y Ciudad:</strong> <?php echo $cliente['pais'] . ', ' . $cliente['ciudad']; ?></li>
+            <li><strong>País:</strong> <?php echo $cliente['pais']; ?></li>
+            <li><strong>Ciudad:</strong> <?php echo $cliente['ciudad']; ?></li>
           </ul>
 
           <h2>2. Datos de la Solicitud</h2>

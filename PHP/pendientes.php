@@ -54,7 +54,7 @@
                       <td>" . ($fila['nombre_servicio'] ?? 'No aplica') . "</td>
                       <td>{$fila['fecha_solicitud']}</td>
                       <td>{$fila['estado']}</td>
-                      <td><a href='detalle_solicitud.php?id={$fila['id_solicitud']}' class='btn btn-view'>🔍 Ver solicitud</a></td>
+                      <td><a href='detalle_solicitud.php?id={$fila['id_solicitud']}' class='btn btn-view'>🔍 Ver</a></td>
                     </tr>";
                   }
                 } else {

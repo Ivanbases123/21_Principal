@@ -1,3 +1,4 @@
+<?php include 'get_detalle_solicitud.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,9 +15,9 @@
       </div>
       <nav>
         <a href="#user">🛠️👤 Nombre Usuario</a>
-        <a href="#pendientes">📥 Solicitudes pendientes</a>
-        <a href="#procesos">⏳ Solicitudes en proceso</a>
-        <a href="#finalizadas">✅ Solicitudes finalizadas</a>
+        <a href="../PHP/pendientes.php" class="active">📥 Solicitudes pendientes</a>
+        <a href="../PHP/proceso.php">⏳ Solicitudes en proceso</a>
+        <a href="../PHP/finalizado.php">✅ Solicitudes finalizadas</a>
         <a href="#usuarios">👤👤 Usuarios</a>
         <a href="#historial">🕓 Historial / Auditoría</a>
         <a href="#logout" class="logout-link">↩️ Cerrar sesión</a>
@@ -32,19 +33,21 @@
 
           <h2>1. Datos del Cliente</h2>
           <ul>
-            <li><strong>Nombre:</strong> <?php echo $cliente['nombre'] . ' ' . $cliente['apellidos']; ?></li>
             <li><strong>Empresa:</strong> <?php echo $cliente['empresa']; ?></li>
-            <li><strong>Cargo:</strong> <?php echo $cliente['cargo']; ?></li>
-            <li><strong>Email:</strong> <?php echo $cliente['email']; ?></li>
-            <li><strong>Teléfono:</strong> <?php echo $cliente['telefono']; ?></li>
+            <li><strong>Nombre:</strong> <?php echo $cliente['nombre'] . ' ' . $cliente['apellidos']; ?></li>
             <li><strong>País:</strong> <?php echo $cliente['pais']; ?></li>
             <li><strong>Ciudad:</strong> <?php echo $cliente['ciudad']; ?></li>
+            <li><strong>Email:</strong> <?php echo $cliente['email']; ?></li>
+            <li><strong>Cargo:</strong> <?php echo $cliente['cargo']; ?></li>
+            <li><strong>Teléfono:</strong> <?php echo $cliente['telefono']; ?></li>
+            <li><strong>Tamaño Empresa:</strong> <?php echo $tamanoempresa['descripcion']; ?></li>
+            <li><strong>Sector empresarial:</strong> <?php echo $sectorempresa['descripcion']; ?></li>
           </ul>
 
           <h2>2. Datos de la Solicitud</h2>
           <ul>
-            <li><strong>Servicio:</strong> <?php echo $servicio; ?></li>
             <li><strong>Deseo:</strong> <?php echo $deseo; ?></li>
+            <li><strong>Servicio:</strong> <?php echo $servicio ?: 'N/A'; ?></li>
             <li><strong>Mensaje:</strong> <?php echo $solicitud['mensaje']; ?></li>
             <li><strong>Fecha de Solicitud:</strong> <?php echo $solicitud['fecha_solicitud']; ?></li>
           </ul>
@@ -73,23 +76,7 @@
             </tbody>
           </table>
 
-          <h2>5. Respuestas Enviadas</h2>
-          <table>
-            <thead>
-              <tr><th>Fecha</th><th>Respuesta</th><th>Respondido por</th></tr>
-            </thead>
-            <tbody>
-              <?php foreach ($respuestas as $respuesta) : ?>
-              <tr>
-                <td><?php echo $respuesta['fecha_respuesta']; ?></td>
-                <td><?php echo $respuesta['respuesta']; ?></td>
-                <td><?php echo $respuesta['respondido_por']; ?></td>
-              </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
-
-          <h2>6. Acciones Disponibles</h2>
+          <h2>5. Acciones Disponibles</h2>
           <form method="POST" action="actualizar_estado.php">
             <label for="nuevo_estado">Cambiar estado:</label>
             <select name="nuevo_estado" id="nuevo_estado">
@@ -116,9 +103,11 @@
             <textarea name="respuesta" id="respuesta" rows="4" required></textarea>
             <button type="submit" class="btn btn-new">Enviar</button>
           </form>
-
         </section>
       </main>
+      <?php
+      mysqli_close($conexion);
+      ?>
     </div>
   </div>
 </body>

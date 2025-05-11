@@ -40,14 +40,14 @@
             <li><strong>Email:</strong> <?php echo $cliente['email']; ?></li>
             <li><strong>Cargo:</strong> <?php echo $cliente['cargo']; ?></li>
             <li><strong>Teléfono:</strong> <?php echo $cliente['telefono']; ?></li>
-            <li><strong>Tamaño Empresa:</strong> <?php echo $tamanoempresa['descripcion']; ?></li>
-            <li><strong>Sector empresarial:</strong> <?php echo $sectorempresa['descripcion']; ?></li>
+            <li><strong>Tamaño Empresa:</strong><?php echo $tamanoempresa['descripcion'];?></li>
+            <li><strong>Sector empresarial:</strong><?php echo $sectorempresa['descripcion'];?></li>
           </ul>
 
           <h2>2. Datos de la Solicitud</h2>
           <ul>
             <li><strong>Deseo:</strong> <?php echo $deseo; ?></li>
-            <li><strong>Servicio:</strong> <?php echo $servicio ?: 'N/A'; ?></li>
+            <li><strong>Servicio:</strong> <?php echo $servicio; ?></li>
             <li><strong>Mensaje:</strong> <?php echo $solicitud['mensaje']; ?></li>
             <li><strong>Fecha de Solicitud:</strong> <?php echo $solicitud['fecha_solicitud']; ?></li>
           </ul>

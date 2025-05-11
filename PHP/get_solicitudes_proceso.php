@@ -11,7 +11,7 @@ if (!$conexion) {
   die("Error de conexión: " . mysqli_connect_error());
 }
 
-// Consulta
+// Consulta para solicitudes en proceso
 $query = "
   SELECT 
     c.nombre AS nombre_cliente,
@@ -26,7 +26,7 @@ $query = "
   INNER JOIN Deseo d ON sol.id_deseo = d.id_deseo
   LEFT JOIN Servicios s ON sol.id_servicio = s.id_servicio
   LEFT JOIN Asignaciones a ON sol.id_solicitud = a.id_solicitud
-  WHERE a.estado = 'Pendiente';
+  WHERE a.estado = 'En proceso';
 ";
 
 $resultado = mysqli_query($conexion, $query);

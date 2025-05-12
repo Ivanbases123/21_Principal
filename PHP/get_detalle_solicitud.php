@@ -38,8 +38,10 @@ $query = "
     sol.mensaje,
     sol.fecha_solicitud,
     a.estado,
+    a.id_departamento,                      -- << AÑADIDO
     dep.nombre_departamento,
-    a.fecha_asignacion
+    a.fecha_asignacion,
+    a.mensaje_asignacion                   -- << OPCIONAL, SOLO SI SE NECESITA EN ALGUNA VISTA
   FROM Solicitudes sol
   INNER JOIN Clientes c ON sol.id_cliente = c.id_cliente
   INNER JOIN TamanoEmpresa te ON c.id_tamano = te.id_tamano
@@ -63,9 +65,9 @@ $data = mysqli_fetch_assoc($resultado);
 $cliente = $data;
 $solicitud = $data;
 $asignacion = $data;
-$departamento = $data['nombre_departamento'];
+$departamento = $data['nombre_departamento'] ?? '';  // Previene warnings si no existe
 $deseo = $data['nombre_deseo'];
-$servicio = $data['nombre_servicio'];
+$servicio = $data['nombre_servicio'] ?? '';
 $tamanoempresa = ['descripcion' => $data['tamano_empresa']];
 $sectorempresa = ['descripcion' => $data['sector_empresa']];
 

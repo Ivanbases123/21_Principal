@@ -21,7 +21,7 @@ CREATE TABLE SectorEmpresa (
 
 -- Tabla Clientes
 
-CREATE TABLE Clientes (
+CREATE TABLE Clientes (	
   id_cliente INT NOT NULL AUTO_INCREMENT,
   empresa VARCHAR(100) NOT NULL,
   nombre VARCHAR(50) NOT NULL,
@@ -84,6 +84,10 @@ CREATE TABLE Asignaciones (
   FOREIGN KEY (id_solicitud) REFERENCES Solicitudes(id_solicitud) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (id_departamento) REFERENCES Departamentos(id_departamento) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+-- crear campo de mensaje de asignacion (nota de administrador)
+alter table Asignaciones add mensaje_asignacion varchar(256);
+
 
 select * from asignaciones;
 

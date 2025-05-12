@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="..\CSS\styles2.css">
+    <link rel="stylesheet" href="../CSS/styles2_factorizada.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto - S21Sec</title>
@@ -13,16 +13,16 @@
 
         <span class="wrap_header">
 
-            <a href="../HTML/s21sec.html"><img src="..\IMG\logoazul.jpg" alt="Logo S21Sec" class="logo_s21sec"></a>
+            <a href="s21sec.html"><img src="..\IMG\logoazul.jpg" alt="Logo S21Sec" class="logo_s21sec"></a>
 
             <ul>
                 <li><a href="#">SERVICIOS</a></li>
                 <li><a href="#">COMPAÑÍA</a></li>
                 <li><a href="#">NOTICIAS</a></li>
-                <li><a href="../HTML/S21Sec_Contacto.html" class="contacto">CONTACTO</a></li>
-                <li><a href="#"><img src="../IMG\bandera_portugal.png"></a></li>
-                <li><a href="#"><img src="../IMG\bandera_espania.png"></a></li>
-                <li><a href="#"><img src="../IMG\bandera_portugal.png"></a></li>
+                <li><a href="#" class="contacto">CONTACTO</a></li>
+                <li><a href="#"><img src="..\IMG\bandera_inglaterra.png"></a></li>
+                <li><a href="#"><img src="..\IMG\bandera_espania.png"></a></li>
+                <li><a href="#"><img src="..\IMG\bandera_portugal.png"></a></li>
             </ul>
         </span>
 
@@ -390,7 +390,7 @@
                     <div class="col-50_container">
                         <div class="contacto_usuario">
 
-                            <form id="contactForm" action="..\PHP\procesar_formulario.php" method="POST">
+                            <form id="contactForm" action="../PHP\procesar_formulario.php" method="POST">
 
                             <div class="grid">
                                 <!-- Formulario con método POST y acción al PHP -->
@@ -542,7 +542,7 @@
 
                                     <div class="politica_privacidad">
                                         <div class="politica_privacidad_">
-                                            Política de Privacidad <span class="frm_required">*</span>
+                                            Política de Privacidad <span class="frm_requiredd">*</span>
                                         </div>
                                         <div class="checkbox_container">
                                             <div class="checkbox_contents">
@@ -558,12 +558,12 @@
                                     <div class="deseo_recibir">
                                         <div class="deseo_recibir_content">
                                             Deseo recibir información sobre servicios y eventos promovidos por S21sec, incluso por medios electrónicos
-                                            <span class="frm_required">*</span>
+                                            <span class="frm_requiredd">*</span>
                                         </div>
                                         <div class="acepto_o_no">
                                             <div class="acepto">
                                                 <label>
-                                                    <input type="radio" name="recibir_info" value="1" required id="validar"> Acepto
+                                                    <input type="radio" name="recibir_info" value="1" required> Acepto
                                                 </label>
                                             </div>
                                             <div class="no_acepto">
@@ -577,7 +577,7 @@
                                     <!-- Botón de enviar (deshabilitado inicialmente) -->
                                     <div class="enviar">
                                         <div class="enviar_container">
-                                            <button id="enviarButton" type="submit">Enviar</button>
+                                            <button id="enviarButton" type="submit" disabled>Enviar</button>
                                         </div>
                                     </div>
                             </div>
@@ -586,7 +586,7 @@
                         </div>
                     </div>
                 </div>
-            </div>xº
+            </div>
 </section>
      </section>
         <section class="container_3">
@@ -855,6 +855,6 @@
         </section>
 
     </div>
-    <script src="..\JS\s21sec.js"></script>   
+    <script src="../JS\s21sec.js"></script>   
 </body>
 </html>

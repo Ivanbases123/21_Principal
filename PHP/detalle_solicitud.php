@@ -1,4 +1,6 @@
-<?php include 'get_detalle_solicitud.php'; ?>
+<?php
+include 'get_detalle_solicitud.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -40,23 +42,23 @@
             <li><strong>Email:</strong> <?php echo $cliente['email']; ?></li>
             <li><strong>Cargo:</strong> <?php echo $cliente['cargo']; ?></li>
             <li><strong>Teléfono:</strong> <?php echo $cliente['telefono']; ?></li>
-            <li><strong>Tamaño Empresa:</strong><?php echo $tamanoempresa['descripcion'];?></li>
-            <li><strong>Sector empresarial:</strong><?php echo $sectorempresa['descripcion'];?></li>
+            <li><strong>Tamaño Empresa:</strong> <?php echo $tamanoempresa['descripcion']; ?></li>
+            <li><strong>Sector empresarial:</strong> <?php echo $sectorempresa['descripcion']; ?></li>
           </ul>
 
           <h2>2. Datos de la Solicitud</h2>
           <ul>
             <li><strong>Deseo:</strong> <?php echo $deseo; ?></li>
-            <li><strong>Servicio:</strong> <?php echo $servicio; ?></li>
+            <li><strong>Servicio:</strong> <?php echo $servicio ?: 'No especificado'; ?></li>
             <li><strong>Mensaje:</strong> <?php echo $solicitud['mensaje']; ?></li>
             <li><strong>Fecha de Solicitud:</strong> <?php echo $solicitud['fecha_solicitud']; ?></li>
           </ul>
 
           <h2>3. Estado Actual y Asignación</h2>
           <ul>
-            <li><strong>Estado:</strong> <?php echo $asignacion['estado']; ?></li>
-            <li><strong>Departamento:</strong> <?php echo $departamento; ?></li>
-            <li><strong>Fecha de asignación:</strong> <?php echo $asignacion['fecha_asignacion']; ?></li>
+            <li><strong>Estado:</strong> <?php echo $asignacion['estado'] ?? 'No asignado'; ?></li>
+            <li><strong>Departamento:</strong> <?php echo $departamento ?? 'No asignado'; ?></li>
+            <li><strong>Fecha de asignación:</strong> <?php echo $asignacion['fecha_asignacion'] ?? 'N/A'; ?></li>
           </ul>
 
           <h2>4. Historial de Estados</h2>
@@ -77,38 +79,37 @@
           </table>
 
           <h2>5. Acciones Disponibles</h2>
-          <form method="POST" action="actualizar_estado.php">
-            <label for="nuevo_estado">Cambiar estado:</label>
-            <select name="nuevo_estado" id="nuevo_estado">
-              <option value="En proceso">En proceso</option>
-              <option value="Finalizado">Finalizado</option>
-            </select>
-            <button type="submit" class="btn btn-edit">Actualizar</button>
-          </form>
+          <form method="POST" action="actualizar_acciones.php">
 
-          <form method="POST" action="reasignar_departamento.php">
+            <!-- Campo oculto para pasar el ID de solicitud -->
+            <input type="hidden" name="id_solicitud" value="<?php echo $id_solicitud['id_solicitud']; ?>">
+
+            <label for="nuevo_estado">Cambiar estado:</label>
+            <select name="nuevo_estado" id="nuevo_estado" required>
+              <option value="En proceso" <?php if(($asignacion['estado'] ?? '') === 'En proceso') echo 'selected'; ?>>En proceso</option>
+              <option value="Finalizado" <?php if(($asignacion['estado'] ?? '') === 'Finalizado') echo 'selected'; ?>>Finalizado</option>
+            </select>
+
             <label for="nuevo_departamento">Editar asignación:</label>
-            <select name="nuevo_departamento" id="nuevo_departamento">
-              <?php foreach ($departamentos as $dpto) : ?>
-              <option value="<?php echo $dpto['id_departamento']; ?>">
-                <?php echo $dpto['nombre_departamento']; ?>
-              </option>
+            <select name="nuevo_departamento" id="nuevo_departamento" required>
+              <?php foreach ($departamentos as $dep_resultado) : ?>
+                <option value="<?php echo $dep_resultado['id_departamento']; ?>" 
+                  <?php if(($asignacion['id_departamento'] ?? '') == $dep_resultado['id_departamento']) echo 'selected'; ?>>
+                  <?php echo $dep_resultado['nombre_departamento']; ?>
+                </option>
               <?php endforeach; ?>
             </select>
-            <button type="submit" class="btn btn-edit">Reasignar</button>
-          </form>
 
-          <form method="POST" action="agregar_respuesta.php">
             <label for="respuesta">Añadir respuesta:</label>
             <textarea name="respuesta" id="respuesta" rows="4" required></textarea>
-            <button type="submit" class="btn btn-new">Enviar</button>
+
+            <button type="submit" class="btn btn-new">Reasignar</button>
           </form>
         </section>
       </main>
-      <?php
-      mysqli_close($conexion);
-      ?>
+      <?php mysqli_close($conexion); ?>
     </div>
   </div>
 </body>
 </html>
+

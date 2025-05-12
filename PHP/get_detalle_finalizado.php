@@ -1,22 +1,18 @@
 <?php
-// Activar errores (solo en desarrollo)
 ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Conectar a la base de datos
 require_once '../PHP/conexion_s21sec.php';
 
 session_start();
 
-if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-  echo "ID de solicitud no proporcionado o inválido.";
+if (!isset($_GET['id'])) {
+  echo "ID de solicitud no proporcionado.";
   exit;
 }
 
 $id_solicitud = intval($_GET['id']);
 
-// Obtener información de la solicitud y el cliente
 $query = "
   SELECT 
     c.empresa,
@@ -57,30 +53,24 @@ if (!$resultado || mysqli_num_rows($resultado) === 0) {
 
 $data = mysqli_fetch_assoc($resultado);
 
-// Asignación de datos a variables
 $cliente = $data;
 $solicitud = $data;
 $asignacion = $data;
+$departamento = $data['nombre_departamento'] ?? '';
 $deseo = $data['nombre_deseo'];
-$servicio = $data['nombre_servicio'] ?? 'No especificado';
+$servicio = $data['nombre_servicio'] ?? '';
 $tamanoempresa = ['descripcion' => $data['tamano_empresa']];
 $sectorempresa = ['descripcion' => $data['sector_empresa']];
-$departamento = $data['nombre_departamento'] ?? 'No asignado';
 
-// Obtener historial de estados
+// Historial de estados
 $historialEstados = [];
 $historial_query = "
-  SELECT 
-    he.estado_anterior, 
-    he.estado_nuevo, 
-    he.fecha_cambio AS fecha, 
-    he.cambiado_por AS usuario
+  SELECT he.estado_anterior, he.estado_nuevo, he.fecha_cambio AS fecha, he.cambiado_por AS usuario
   FROM HistorialEstados he
   INNER JOIN Asignaciones a ON he.id_asignacion = a.id_asignacion
   WHERE a.id_solicitud = $id_solicitud
   ORDER BY he.fecha_cambio ASC
 ";
-
 $historial_resultado = mysqli_query($conexion, $historial_query);
 if ($historial_resultado && mysqli_num_rows($historial_resultado) > 0) {
   while ($row = mysqli_fetch_assoc($historial_resultado)) {
@@ -88,13 +78,14 @@ if ($historial_resultado && mysqli_num_rows($historial_resultado) > 0) {
   }
 }
 
-// Obtener departamentos para el formulario de reasignación
+// Departamentos (opcional)
 $departamentos = [];
 $dep_query = "SELECT id_departamento, nombre_departamento FROM Departamentos";
 $dep_resultado = mysqli_query($conexion, $dep_query);
-if ($dep_resultado && mysqli_num_rows($dep_resultado) > 0) {
+if ($dep_resultado) {
   while ($row = mysqli_fetch_assoc($dep_resultado)) {
     $departamentos[] = $row;
   }
 }
 ?>
+

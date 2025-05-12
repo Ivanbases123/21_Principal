@@ -1,5 +1,5 @@
 <?php
-include 'get_detalle_solicitud.php';
+include 'get_detalle_proceso.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -7,7 +7,7 @@ include 'get_detalle_solicitud.php';
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../CSS/stylesDashboard.css" />
-  <title>Detalle de Solicitud</title>
+  <title>Detalle de Solicitud en Proceso</title>
 </head>
 <body class="light">
   <div class="dashboard">
@@ -28,7 +28,7 @@ include 'get_detalle_solicitud.php';
 
     <div class="main-wrapper">
       <header class="topbar">
-        <h1>Detalle de Solicitud</h1>
+        <h1>Detalle de Solicitud en Proceso</h1>
       </header>
       <main class="main-content">
         <section class="detalle-solicitud">
@@ -78,32 +78,6 @@ include 'get_detalle_solicitud.php';
               <?php endforeach; ?>
             </tbody>
           </table>
-
-          <h2>5. Acciones Disponibles</h2>
-          <form method="POST" action="actualizar_acciones.php">
-            <input type="hidden" name="id_solicitud" value="<?php echo $id_solicitud; ?>">
-
-            <label for="nuevo_estado">Cambiar estado:</label>
-            <select name="nuevo_estado" id="nuevo_estado" required>
-              <option value="En proceso" <?php if(($asignacion['estado'] ?? '') === 'En proceso') echo 'selected'; ?>>En proceso</option>
-              <option value="Finalizado" <?php if(($asignacion['estado'] ?? '') === 'Finalizado') echo 'selected'; ?>>Finalizado</option>
-            </select>
-
-            <label for="nuevo_departamento">Editar asignación:</label>
-            <select name="nuevo_departamento" id="nuevo_departamento" required>
-              <?php foreach ($departamentos as $dep_resultado) : ?>
-                <option value="<?php echo $dep_resultado['id_departamento']; ?>" 
-                  <?php if(($asignacion['id_departamento'] ?? '') == $dep_resultado['id_departamento']) echo 'selected'; ?>>
-                  <?php echo $dep_resultado['nombre_departamento']; ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
-
-            <label for="respuesta">Añadir respuesta:</label>
-            <textarea name="respuesta" id="respuesta" rows="4" required></textarea>
-
-            <button type="submit" class="btn btn-new">Reasignar</button>
-          </form>
         </section>
       </main>
       <?php mysqli_close($conexion); ?>

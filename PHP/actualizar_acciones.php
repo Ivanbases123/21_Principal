@@ -7,19 +7,17 @@ error_reporting(E_ALL);
 // Conexión a base de datos
 require_once '../PHP/conexion_s21sec.php';
 
-// Validación de datos recibidos
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $id_solicitud = $_POST['id_solicitud'] ?? null;
-    $nuevo_estado = $_POST['nuevo_estado'] ?? null;
-    $nuevo_departamento = $_POST['nuevo_departamento'] ?? null;
-    $mensaje = $_POST['respuesta'] ?? '';
-    $usuario = "admin"; // Aquí deberías usar $_SESSION['usuario'] si tienes login implementado
+    $id_solicitud = intval($_POST['id_solicitud'] ?? 0);
+    $nuevo_estado = trim($_POST['nuevo_estado'] ?? '');
+    $nuevo_departamento = intval($_POST['nuevo_departamento'] ?? 0);
+    $mensaje = trim($_POST['respuesta'] ?? '');
+    $usuario = "admin"; // Cambiar por $_SESSION['usuario'] si tienes sesión iniciada
 
     if (!$id_solicitud || !$nuevo_estado || !$nuevo_departamento) {
         die("Faltan datos para actualizar.");
     }
 
-    // Obtener datos actuales de la asignación para registrar en historial
     $query_asignacion = "SELECT id_asignacion, estado FROM Asignaciones WHERE id_solicitud = $id_solicitud";
     $resultado_asignacion = mysqli_query($conexion, $query_asignacion);
 
@@ -28,23 +26,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $asignacion = mysqli_fetch_assoc($resultado_asignacion);
-    $estado_anterior = $asignacion['estado'];
-    $id_asignacion = $asignacion['id_asignacion'];
+    $estado_anterior = mysqli_real_escape_string($conexion, $asignacion['estado']);
+    $id_asignacion = intval($asignacion['id_asignacion']);
     $fecha_actual = date('Y-m-d H:i:s');
 
-    // Actualizar la asignación
+    $mensaje_escapado = mysqli_real_escape_string($conexion, $mensaje);
+    $nuevo_estado_escapado = mysqli_real_escape_string($conexion, $nuevo_estado);
+    $usuario_escapado = mysqli_real_escape_string($conexion, $usuario);
+
     $update_query = "
         UPDATE Asignaciones 
         SET 
-            estado = '$nuevo_estado',
+            estado = '$nuevo_estado_escapado',
             id_departamento = $nuevo_departamento,
-            mensaje_asignacion = '" . mysqli_real_escape_string($conexion, $mensaje) . "',
+            mensaje_asignacion = '$mensaje_escapado',
             fecha_asignacion = '$fecha_actual'
         WHERE id_solicitud = $id_solicitud
     ";
 
     if (mysqli_query($conexion, $update_query)) {
-        // Registrar en historial
         $insert_historial = "
             INSERT INTO HistorialEstados (
                 id_asignacion, 
@@ -55,14 +55,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             ) VALUES (
                 $id_asignacion,
                 '$estado_anterior',
-                '$nuevo_estado',
+                '$nuevo_estado_escapado',
                 '$fecha_actual',
-                '" . mysqli_real_escape_string($conexion, $usuario) . "'
+                '$usuario_escapado'
             )
         ";
         mysqli_query($conexion, $insert_historial);
 
-        // Redirigir de nuevo a la página de detalle
         header("Location: detalle_solicitud.php?id=$id_solicitud");
         exit();
     } else {
@@ -74,4 +73,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 mysqli_close($conexion);
 ?>
-

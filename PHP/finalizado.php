@@ -1,4 +1,4 @@
-
+<?php include 'get_solicitudes_finalizada.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,12 +15,12 @@
       </div>
       <nav>
         <a href="#user">🛠️👤 Nombre Usuario</a>
-        <a href="../PHP/pendientes.php" class="active">📥 Solicitudes pendientes</a>
-        <a href="../PHP/proceso.php">⏳ Solicitudes en proceso</a>
-        <a href="../PHP/finalizado.php">✅ Solicitudes finalizadas</a>
-        <a href="#usuarios">👤👤 Usuarios</a>
-        <a href="#historial">🕓 Historial / Auditoría</a>
-        <a href="#logout" class="logout-link">↩️ Cerrar sesión</a>
+        <a href="pendientes.php" class="active">📥 Solicitudes pendientes</a>
+        <a href="proceso.php">⏳ Solicitudes en proceso</a>
+        <a href="finalizado.php">✅ Solicitudes finalizadas</a>
+        <a href="usuarios.php">👤👤 Usuarios</a>
+        <a href="historial.php">🕓 Historial / Auditoría</a>
+        <a href="../PHP/logout.php" class="logout-link">↩️ Cerrar sesión</a>
       </nav>
     </aside>
 
@@ -29,10 +29,9 @@
         <h1>Solicitudes Finalizadas</h1>
       </header>
       <main class="main-content">
-        <section class="tabla-pendientes">
+        <section class="tabla-finalizadas">
           <div class="table-container">
-            <table>
-              <thead>
+            <table border="1" cellpadding="5">
               <thead>
                 <tr>
                   <th>Nombre del cliente</th>
@@ -41,38 +40,35 @@
                   <th>Servicio solicitado</th>
                   <th>Fecha</th>
                   <th>Estado</th>
-                  <th>Asignado a</th>
                   <th>Detalle</th>
                 </tr>
               </thead>
               <tbody>
-                <?php while ($row = mysqli_fetch_assoc($resultado)): ?>
-                <tr>
-                  <td><?= htmlspecialchars($row['nombre'] . ' ' . $row['apellidos']) ?></td>
-                  <td><?= htmlspecialchars($row['empresa']) ?></td>
-                  <td><?= htmlspecialchars($row['nombre_deseo']) ?></td>
-                  <td>
-                    <?php
-                      if ($row['nombre_deseo'] === 'Información sobre un servicio') {
-                        echo htmlspecialchars($row['nombre_servicio']);
-                      } else {
-                        echo 'N/A';
-                      }
-                    ?>
-                  </td>
-                  <td><?= htmlspecialchars($row['fecha_solicitud']) ?></td>
-                  <td><?= htmlspecialchars($row['estado']) ?></td>
-                  <td>
-                    <a href="detalle_solicitud.php?id=<?= $row['id_solicitud'] ?>" class="btn btn-view">🔍 Ver solicitud</a>
-                  </td>
-                </tr>
-                <?php endwhile; ?>
+                <?php
+                if ($resultado && mysqli_num_rows($resultado) > 0) {
+                  while ($fila = mysqli_fetch_assoc($resultado)) {
+                    echo "<tr>
+                      <td>{$fila['nombre_cliente']}</td>
+                      <td>{$fila['empresa']}</td>
+                      <td>{$fila['nombre_deseo']}</td>
+                      <td>" . ($fila['nombre_servicio'] ?? 'No aplica') . "</td>
+                      <td>{$fila['fecha_solicitud']}</td>
+                      <td>{$fila['estado']}</td>
+                      <td><a href='detalle_finalizado.php?id={$fila['id_solicitud']}' class='btn btn-view'>🔍 Ver</a></td>
+                    </tr>";
+                  }
+                } else {
+                  echo "<tr><td colspan='7'>No hay solicitudes finalizadas.</td></tr>";
+                }
+                ?>
               </tbody>
             </table>
           </div>
         </section>
       </main>
+      <?php mysqli_close($conexion); ?>
     </div>
   </div>
 </body>
 </html>
+

@@ -7,6 +7,8 @@ error_reporting(E_ALL);
 // Conectar a la base de datos
 require_once '../PHP/conexion_s21sec.php';
 
+session_start();
+
 // Consulta para solicitudes en proceso
 $query = "
   SELECT 

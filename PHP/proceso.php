@@ -15,12 +15,12 @@
       </div>
       <nav>
         <a href="#user">🛠️👤 Nombre Usuario</a>
-        <a href="pendientes.php">📥 Solicitudes pendientes</a>
-        <a href="proceso.php" class="active">⏳ Solicitudes en proceso</a>
+        <a href="pendientes.php" class="active">📥 Solicitudes pendientes</a>
+        <a href="proceso.php">⏳ Solicitudes en proceso</a>
         <a href="finalizado.php">✅ Solicitudes finalizadas</a>
-        <a href="#usuarios">👤👤 Usuarios</a>
-        <a href="#historial">🕓 Historial / Auditoría</a>
-        <a href="#logout" class="logout-link">↩️ Cerrar sesión</a>
+        <a href="usuarios.php">👤👤 Usuarios</a>
+        <a href="historial.php">🕓 Historial / Auditoría</a>
+        <a href="../PHP/logout.php" class="logout-link">↩️ Cerrar sesión</a>
       </nav>
     </aside>
 

@@ -5,13 +5,8 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Conectar a la base de datos
-$conexion = mysqli_connect("localhost", "root", "1234", "s21sec");
+require_once '../PHP/conexion_s21sec.php';
 
-if (!$conexion) {
-  die("Error de conexión: " . mysqli_connect_error());
-}
-
-// Consulta
 $query = "
   SELECT 
     c.nombre AS nombre_cliente,
@@ -30,7 +25,4 @@ $query = "
 ";
 
 $resultado = mysqli_query($conexion, $query);
-
-if (!$resultado) {
-  echo "Error en la consulta: " . mysqli_error($conexion);
-}
+?>

@@ -5,11 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Conexión a base de datos
-$conexion = mysqli_connect("localhost", "root", "1234", "s21sec");
-
-if (!$conexion) {
-    die("Error de conexión: " . mysqli_connect_error());
-}
+require_once '../PHP/conexion_s21sec.php';
 
 // Validación de datos recibidos
 if ($_SERVER["REQUEST_METHOD"] === "POST") {

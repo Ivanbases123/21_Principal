@@ -1,4 +1,7 @@
-<?php include 'get_solicitudes_pendientes.php'; ?>
+<?php
+// Incluir los archivos necesarios (ambos en la misma carpeta)
+include 'get_solicitudes_pendientes.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

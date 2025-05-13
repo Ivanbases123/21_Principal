@@ -17,7 +17,7 @@ include 'get_solicitudes_pendientes.php';
         <a href="pendientes.php"><img src="../IMG/logoazul.jpg" alt="Logo Empresa" class="logo"></a>
       </div>
       <nav>
-        <a href="#user">🛠️👤 Nombre Usuario</a>
+        <a href="perfil.php">🛠️👤 Nombre Usuario</a>
         <a href="pendientes.php" class="active">📥 Solicitudes pendientes</a>
         <a href="proceso.php">⏳ Solicitudes en proceso</a>
         <a href="finalizado.php">✅ Solicitudes finalizadas</a>

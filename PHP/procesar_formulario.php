@@ -1,41 +1,78 @@
 <?php
+// Mostrar errores (desactivar en producción)
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-include $_SERVER['DOCUMENT_ROOT'] . '/21_Principal/PHP/conexion.php';
+// Conexión y helpers
+require_once '../PHP/conexion_s21sec.php';
+require_once '../PHP/helpers.php';
 
-// Recoger los datos del formulario
-$empresa = $conn->real_escape_string($_POST['empresa']);
-$nombre = $conn->real_escape_string($_POST['nombre']);
-$apellidos = $conn->real_escape_string($_POST['apellidos']);
-$pais = $conn->real_escape_string($_POST['pais']);
-$ciudad = $conn->real_escape_string($_POST['ciudad']);
-$email = $conn->real_escape_string($_POST['email']);
-$telefono = $conn->real_escape_string($_POST['telefono']);
-$cargo = $conn->real_escape_string($_POST['cargo']);
-$tamano_empresa = $conn->real_escape_string($_POST['tamano_empresa']);
-$sector_empresa = $conn->real_escape_string($_POST['sector_empresa']);
-$deseo = $conn->real_escape_string($_POST['deseo']);
-$mensaje = $conn->real_escape_string($_POST['mensaje']);
-$recibir_info = intval($_POST['recibir_info']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-// Insertar datos en la tabla principal
-$sql = "INSERT INTO formu_cliente (empresa, nombre, apellidos, pais, ciudad, email, telefono, cargo, tamano_empresa, sector_empresa, deseo, mensaje, recibir_info)
-        VALUES ('$empresa', '$nombre', '$apellidos', '$pais', '$ciudad', '$email', '$telefono', '$cargo', '$tamano_empresa', '$sector_empresa', '$deseo', '$mensaje', $recibir_info)";
+    // Escapar y limpiar datos del formulario
+    $empresa = trim($_POST['empresa']);
+    $nombre = trim($_POST['nombre']);
+    $apellidos = trim($_POST['apellidos']);
+    $pais = trim($_POST['pais']);
+    $ciudad = trim($_POST['ciudad']);
+    $email = trim($_POST['email']);
+    $telefono = trim($_POST['telefono']);
+    $cargo = trim($_POST['cargo']);
+    $tamano_empresa = $_POST['tamano_empresa'];
+    $sector_empresa = $_POST['sector_empresa'];
+    $deseo = $_POST['deseo'];
+    $informacion = $_POST['informacion'] ?? null;
+    $mensaje = $_POST['mensaje'] ?? null;
 
-if ($conn->query($sql) === TRUE) {
-    $cliente_id = $conn->insert_id;
-    
-    // Si seleccionó información sobre un servicio, insertar en la tabla deseo_informacion
-    if ($deseo === 'Información sobre un servicio' && isset($_POST['informacion'])) {
-        $informacion = $conn->real_escape_string($_POST['informacion']);
-        $sql_info = "INSERT INTO deseo_informacion (cliente_id, informacion) VALUES ($cliente_id, '$informacion')";
-        $conn->query($sql_info);
+    // Paso 1: Insertar o buscar id_tamano
+    $id_tamano = getOrCreateId($conexion, 'TamanoEmpresa', 'descripcion', $tamano_empresa, 'id_tamano');
+
+    // Paso 2: Insertar o buscar id_sector
+    $id_sector = getOrCreateId($conexion, 'SectorEmpresa', 'descripcion', $sector_empresa, 'id_sector');
+
+    // Paso 3: Insertar cliente
+    $stmt_cliente = $conexion->prepare("
+        INSERT INTO Clientes (empresa, nombre, apellidos, pais, ciudad, email, telefono, cargo, id_tamano, id_sector)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ");
+    $stmt_cliente->bind_param("ssssssssii", $empresa, $nombre, $apellidos, $pais, $ciudad, $email, $telefono, $cargo, $id_tamano, $id_sector);
+    $stmt_cliente->execute();
+    $id_cliente = $stmt_cliente->insert_id;
+    $stmt_cliente->close();
+
+    // Paso 4: Insertar o buscar deseo
+    $id_deseo = getOrCreateId($conexion, 'Deseo', 'nombre_deseo', $deseo, 'id_deseo');
+
+    // Paso 5: Si hay información adicional, obtener ID del servicio
+    $id_servicio = null;
+    if (!empty($informacion)) {
+        $id_servicio = getOrCreateId($conexion, 'Servicios', 'nombre_servicio', $informacion, 'id_servicio');
     }
-    
-    // Redirigir a página de éxito
-    header('Location: gracias.html');
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
 
-$conn->close();
+    // Paso 6: Insertar solicitud
+    $stmt_sol = $conexion->prepare("
+        INSERT INTO Solicitudes (id_cliente, id_deseo, id_servicio, mensaje)
+        VALUES (?, ?, ?, ?)
+    ");
+    $stmt_sol->bind_param("iiis", $id_cliente, $id_deseo, $id_servicio, $mensaje);
+    $stmt_sol->execute();
+    $id_solicitud = $stmt_sol->insert_id;
+    $stmt_sol->close();
+
+    // Paso 7: Insertar asignación automática (estado por defecto: 'Pendiente')
+    $id_departamento = 1; // ID del departamento responsable (ajústalo según tu sistema)
+    $stmt_asig = $conexion->prepare("
+        INSERT INTO Asignaciones (id_solicitud, id_departamento)
+        VALUES (?, ?)
+    ");
+    $stmt_asig->bind_param("ii", $id_solicitud, $id_departamento);
+    $stmt_asig->execute();
+    $stmt_asig->close();
+
+    // Mensaje de éxito (puedes redirigir aquí si prefieres)
+    echo "✅ Tu solicitud fue registrada correctamente.";
+
+} else {
+    echo "❌ Método no permitido.";
+}
 ?>

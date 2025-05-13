@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const politicaCheckbox = document.getElementById('politicaCheckbox');
     const recibirInfoRadios = document.querySelectorAll('input[name="recibir_info"]');
     const enviarButton = document.getElementById('enviarButton');
-    let validar=document.getElementById("validar");
-    // 1. Mostrar/ocultar campo "Deseo información de" (funcionalidad que ya tenías)
-    deseoSelect.addEventListener('change', function() {
+
+    // Mostrar/ocultar campo "Deseo información de"
+    deseoSelect.addEventListener('change', function () {
         if (this.value === 'Información sobre un servicio') {
             deseoInformacionDiv.style.display = 'block';
             informacionSelect.setAttribute('required', 'required');
@@ -18,57 +18,42 @@ document.addEventListener('DOMContentLoaded', function () {
             informacionSelect.removeAttribute('required');
             informacionSelect.value = '';
         }
-        checkFormValidity(); // Verificar si el formulario es válido
+        checkFormValidity();
     });
 
-    // 2. Validar el formulario antes de enviar (nuevo)
-    form.addEventListener('submit', function(e) {
+    // Validar el formulario antes de enviar
+    form.addEventListener('submit', function (e) {
         if (!form.checkValidity()) {
             e.preventDefault();
             alert('Por favor complete todos los campos obligatorios correctamente.');
         }
     });
 
-    // // 3. Función para habilitar/deshabilitar el botón (nuevo)
-    // function checkFormValidity() {
-    //     const isFormValid = form.checkValidity();
-    //     enviarButton.disabled = !isFormValid;
+    // Validar checkbox, radio buttons y campos obligatorios
+    function checkFormValidity() {
+        const isPolicyChecked = politicaCheckbox.checked;
+        const isRadioSelected = [...recibirInfoRadios].some(r => r.checked);
+        const isFormValid = form.checkValidity() && isPolicyChecked && isRadioSelected;
 
-    //     // Cambiar estilo del botón (opcional, si quieres feedback visual)
-    //     if (enviarButton.disabled) {
-    //         enviarButton.style.opacity = '0.5';
-    //         enviarButton.style.cursor = 'not-allowed';
-    //     } else {
-    //         enviarButton.style.opacity = '1';
-    //         enviarButton.style.cursor = 'pointer';
-    //     }
-    // }
+        enviarButton.disabled = !isFormValid;
+    }
 
-    // 4. Escuchar cambios en todos los campos requeridos (nuevo)
+    // Detectar cambios en campos requeridos
     form.querySelectorAll('[required]').forEach(element => {
+        element.addEventListener('input', checkFormValidity);
         element.addEventListener('change', checkFormValidity);
-        element.addEventListener('input', checkFormValidity); // Para validar en tiempo real
     });
 
-    // 5. Validar radio buttons "Deseo recibir información" (nuevo)
-    // recibirInfoRadios.forEach(radio => {
-    //     radio.addEventListener('change', checkFormValidity);
-    // });
+    // Escuchar cambios en radios
+    recibirInfoRadios.forEach(radio => {
+        radio.addEventListener('change', checkFormValidity);
+    });
 
-    // 6. Validar checkbox de políticas (nuevo)
+    // Escuchar cambio en el checkbox
     politicaCheckbox.addEventListener('change', checkFormValidity);
 
-    // Validar inicialmente al cargar la página
+    // Validar al cargar
     checkFormValidity();
-    });
+});
 
-    function comprobar (){
 
-    if(validar == 1){
-        console.log("El valor es 1")
-    }
-    else {
-        console.log("El valor es cero")
-    };
-
-}

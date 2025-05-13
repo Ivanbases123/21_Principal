@@ -389,90 +389,63 @@
                 <div class="col-50">
                     <div class="col-50_container">
                         <div class="contacto_usuario">
-
-                            <form id="contactForm" action="../PHP\procesar_formulario.php" method="POST">
-
-                            <div class="grid">
-                                <!-- Formulario con método POST y acción al PHP -->
-                                
-                                    <!-- Campos del formulario (conservando tus clases CSS) -->
+                            <form id="contactForm" action="../PHP/procesar_formulario.php" method="POST">
+                                <div class="grid">
+            
                                     <div class="empresa frm_first frm4">
-                                        <label for="empresa" class="contacto_empresa">
-                                            Empresa <span class="frm_required">*</span>
-                                        </label>
-                                        <input type="text" name="empresa" id="empresa" aria-required="true" class="contacto_main" required>
+                                        <label for="empresa" class="contacto_empresa">Empresa <span class="frm_requiredd">*</span></label>
+                                        <input type="text" name="empresa" id="empresa" class="contacto_main" required>
                                     </div>
-
+                                    
                                     <div class="empresa frm4">
-                                        <label for="nombre" class="contacto_empresa">
-                                            Nombre <span class="frm_required">*</span>
-                                        </label>
-                                        <input type="text" name="nombre" id="nombre" aria-required="true" class="contacto_main" required>
+                                        <label for="nombre" class="contacto_empresa">Nombre <span class="frm_requiredd">*</span></label>
+                                        <input type="text" name="nombre" id="nombre" class="contacto_main" required>
                                     </div>
-
+            
                                     <div class="empresa frm4">
-                                        <label for="apellidos" class="contacto_empresa">
-                                            Apellidos <span class="frm_required">*</span>
-                                        </label>
-                                        <input type="text" name="apellidos" id="apellidos" aria-required="true" class="contacto_main" required>
+                                        <label for="apellidos" class="contacto_empresa">Apellidos <span class="frm_requiredd">*</span></label>
+                                        <input type="text" name="apellidos" id="apellidos" class="contacto_main" required>
                                     </div>
-
+            
                                     <div class="empresa frm4">
-                                        <label for="pais" class="contacto_empresa">
-                                            País <span class="frm_required">*</span>
-                                        </label>
-                                        <input type="text" name="pais" id="pais" aria-required="true" class="contacto_main" required>
+                                        <label for="pais" class="contacto_empresa">País <span class="frm_requiredd">*</span></label>
+                                        <input type="text" name="pais" id="pais" class="contacto_main" required>
                                     </div>
-
+            
                                     <div class="empresa frm4">
-                                        <label for="ciudad" class="contacto_empresa">
-                                            Ciudad <span class="frm_required">*</span>
-                                        </label>
-                                        <input type="text" name="ciudad" id="ciudad" aria-required="true" class="contacto_main" required>
+                                        <label for="ciudad" class="contacto_empresa">Ciudad <span class="frm_requiredd">*</span></label>
+                                        <input type="text" name="ciudad" id="ciudad" class="contacto_main" required>
                                     </div>
-
+            
                                     <div class="empresa frm4">
-                                        <label for="email" class="contacto_empresa">
-                                            Email corporativo <span class="frm_required">*</span>
-                                        </label>
-                                        <input type="email" name="email" id="email" aria-required="true" class="contacto_main" required>
+                                        <label for="email" class="contacto_empresa">Email corporativo <span class="frm_requiredd">*</span></label>
+                                        <input type="email" name="email" id="email" class="contacto_main" required>
                                     </div>
-
+            
                                     <div class="empresa frm3">
-                                        <label for="telefono" class="contacto_empresa">
-                                            Teléfono <span class="frm_required">*</span>
-                                        </label>
-                                        <input type="tel" name="telefono" id="telefono" aria-required="true" class="contacto_main" required>
+                                        <label for="telefono" class="contacto_empresa">Teléfono <span class="frm_requiredd">*</span></label>
+                                        <input type="tel" name="telefono" id="telefono" class="contacto_main" required>
                                     </div>
-
+            
                                     <div class="empresa frm3">
-                                        <label for="cargo" class="contacto_empresa">
-                                            Cargo <span class="frm_required">*</span>
-                                        </label>
-                                        <input type="text" name="cargo" id="cargo" aria-required="true" class="contacto_main" required>
+                                        <label for="cargo" class="contacto_empresa">Cargo <span class="frm_requiredd">*</span></label>
+                                        <input type="text" name="cargo" id="cargo" class="contacto_main" required>
                                     </div>
-
-                                    <!-- Selectores (conservando tus opciones) -->
+            
                                     <div class="empresa frm3">
-                                        <label for="tamano_empresa" class="contacto_empresa">
-                                            Tamaño empresa <span class="frm_required">*</span>
-                                        </label>
+                                        <label for="tamano_empresa"class="contacto_empresa" >Tamaño empresa <span class="frm_requiredd">*</span></label>
                                         <select name="tamano_empresa" id="tamano_empresa" aria-required="true" class="contacto_main" required>
-                                            <option value="" selected disabled>Seleccione...</option>
-                                            <option value="10 Empleados">< 10 Empleados</option>
+                                            <option value="10 Empleados">&#60; 10 Empleados</option>
                                             <option value="10 - 50 Empleados">10 - 50 Empleados</option>
                                             <option value="51 - 250 Empleados">51 - 250 Empleados</option>
                                             <option value="251 - 1000 Empleados">251 - 1000 Empleados</option>
-                                            <option value="1000 Empleados">> 1000 Empleados</option>
+                                            <option value="1000 Empleados">&#62; 1000 Empleados</option>
                                         </select>
                                     </div>
-
+            
                                     <div class="empresa frm3">
-                                        <label for="sector_empresa" class="contacto_empresa">
-                                            Sector empresa <span class="frm_required">*</span>
-                                        </label>
+                                        <label for="sector_empresa" class="contacto_empresa">Sector empresa <span class="frm_requiredd">*</span></label>
                                         <select name="sector_empresa" id="sector_empresa" aria-required="true" class="contacto_main" required>
-                                            <option value="" selected disabled>Seleccione...</option>
                                             <option value="Automoción & Transporte">Automoción & Transporte</option>
                                             <option value="Consultoría">Consultoría</option>
                                             <option value="Consumo & Venta al por menor">Consumo & Venta al por menor</option>
@@ -487,28 +460,20 @@
                                             <option value="Otro sector">Otro sector</option>
                                         </select>
                                     </div>
-
-                                    <!-- Campo "Deseo" con lógica condicional -->
+            
                                     <div class="empresa frm4">
-                                        <label for="deseo" class="contacto_empresa">
-                                            Deseo: <span class="frm_required">*</span>
-                                        </label>
-                                        <select name="deseo" id="deseo" aria-required="true" class="contacto_main" required>
-                                            <option value="" selected disabled>Seleccione...</option>
+                                        <label for="deseo" class="contacto_empresa">Deseo: <span class="frm_requiredd">*</span></label>
+                                        <select name="deseo" id="deseo" class="contacto_main" required>
                                             <option value="Información sobre un servicio">Información sobre un servicio</option>
                                             <option value="Respuesta a un incidente">Respuesta a un incidente</option>
                                             <option value="Acceso a webinars">Acceso a webinars</option>
                                             <option value="Descargar un informe">Descargar un informe</option>
                                         </select>
                                     </div>
-                                    
-                                    <!-- Campo condicional (oculto inicialmente) -->
+            
                                     <div class="empresa frm4" id="deseo-informacion" style="display: none;">
-                                        <label for="informacion" class="contacto_empresa">
-                                            Deseo información de: <span class="frm_required">*</span>
-                                        </label>
+                                        <label for="informacion">Deseo información de: <span class="frm_requiredd">*</span></label>
                                         <select name="informacion" id="informacion" class="contacto_main">
-                                            <option value="" selected disabled>Seleccione...</option>
                                             <option value="Managed Detection and Response">Managed Detection and Response</option>
                                             <option value="SOC gestionado y SIEM como servicio">SOC gestionado y SIEM como servicio</option>
                                             <option value="DFIR">DFIR</option>
@@ -525,63 +490,47 @@
                                             <option value="Otros (especificar)">Otros (especificar)</option>
                                         </select>
                                     </div>
-
-                                    <!-- Mensaje opcional -->
+            
                                     <div class="mensaje_contacto">
-                                        <label for="mensaje" class="frm_primary_label">
-                                            Mensaje (opcional)
-                                            <span class="frm_required"></span>
-                                        </label>
-                                        <textarea name="mensaje" id="mensaje" rows="2" aria-invalid="false" spellcheck="false"></textarea>
+                                        <label for="mensaje" class="frm_primary_label">Mensaje (opcional)</label>
+                                        <textarea name="mensaje" id="mensaje" rows="2"></textarea>
                                     </div>
 
-                                    <!-- Política de privacidad (checkbox obligatorio) -->
                                     <div class="condiciones_politica">
                                         <p>Procesaremos sus datos personales de acuerdo a nuestras <a href="https://www.s21sec.com/es/aviso-legal/">Condiciones de uso</a> y <a href="https://www.s21sec.com/es/politica-de-privacidad/">Política de privacidad</a>. Por favor, léala y comprenda sus derechos de protección de datos.</p>
                                     </div>
 
+
                                     <div class="politica_privacidad">
                                         <div class="politica_privacidad_">
-                                            Política de Privacidad <span class="frm_requiredd">*</span>
+                                           <p> Política de Privacidad <span class="frm_required">*</span></p>
                                         </div>
                                         <div class="checkbox_container">
                                             <div class="checkbox_contents">
-                                                <label>
-                                                    <input type="checkbox" name="politica_privacidad" id="politicaCheckbox" value="1" required>
-                                                    He leído y acepto las Condiciones de Uso y la Política de Privacidad
-                                                </label>
+                                                <label><input type="checkbox" name="politica_privacidad" id="politicaCheckbox" required> He leído y acepto las Condiciones de Uso y la Política de Privacidad</label>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- Radio buttons para recibir información -->
                                     <div class="deseo_recibir">
                                         <div class="deseo_recibir_content">
-                                            Deseo recibir información sobre servicios y eventos promovidos por S21sec, incluso por medios electrónicos
-                                            <span class="frm_requiredd">*</span>
+                                            <p>Deseo recibir información sobre servicios y eventos promovidos por S21sec, incluso por medios electrónicos <span class="frm_required">*</span></p>      
                                         </div>
                                         <div class="acepto_o_no">
                                             <div class="acepto">
-                                                <label>
-                                                    <input type="radio" name="recibir_info" value="1" required> Acepto
-                                                </label>
+                                                <label><input type="radio" name="recibir_info" value="1" required> Acepto</label>
                                             </div>
                                             <div class="no_acepto">
-                                                <label>
-                                                    <input type="radio" name="recibir_info" value="0"> No acepto
-                                                </label>
+                                                <label><input type="radio" name="recibir_info" value="0"> No acepto</label>
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <!-- Botón de enviar (deshabilitado inicialmente) -->
                                     <div class="enviar">
-                                        <div class="enviar_container">
-                                            <button id="enviarButton" type="submit" disabled>Enviar</button>
-                                        </div>
+                                        <button type="submit" id="enviarButton">Enviar</button>
                                     </div>
-                            </div>
-
+            
+                                </div>
                             </form>
                         </div>
                     </div>

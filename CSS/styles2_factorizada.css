@@ -69,6 +69,7 @@ original. Resultado: mismo diseño con código más limpio y escalable.
   --font-size-display-md: 35px;
   --font-size-display-lg: 39px;
   --font-size-display-xl: 40px;
+
   
   /* Anchuras */
   --width-half: 50%;
@@ -520,9 +521,14 @@ img {
 }
 
 .col-50 .frm_requiredd{
+  color: var(--text-color-dark);
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-xxl);
+}
+.col-50 .frm_required{
   color: var(--required-color);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xxxl);
 }
 
 .col-50 textarea {

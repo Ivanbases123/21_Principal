@@ -14,7 +14,7 @@ include 'get_solicitudes_pendientes.php';
   <div class="dashboard">
     <aside class="sidebar">
       <div class="sidebar-logo">
-        <img src="../IMG/logoazul.jpg" alt="Logo Empresa" class="logo">
+        <a href="pendientes.php"><img src="../IMG/logoazul.jpg" alt="Logo Empresa" class="logo"></a>
       </div>
       <nav>
         <a href="#user">🛠️👤 Nombre Usuario</a>

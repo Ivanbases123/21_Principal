@@ -819,11 +819,6 @@ img {
 }
 
 /* ===== VALIDATION STYLES ===== */
-input:invalid, 
-select:invalid, 
-textarea:invalid {
-  border-color: var(--error-color) !important;
-}
 
 .error-message {
   color: var(--error-color);
